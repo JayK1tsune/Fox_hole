@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Player_Controller : MonoBehaviour
 {
+    public Animator animator;
     public float moveSpeed = 1f;
     public float collisionOffset = 0.5F;
     public ContactFilter2D movementFilter;
@@ -18,6 +19,7 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,7 @@ public class Player_Controller : MonoBehaviour
                 castCollisions,
                 moveSpeed * Time.fixedDeltaTime + collisionOffset);
         }
+        rb.velocity = movementInput * moveSpeed;
     }
     
 
@@ -41,6 +44,11 @@ public class Player_Controller : MonoBehaviour
  
     void OnMove(InputValue movementValue){
         movementInput = movementValue.Get<Vector2>();
-
+        if(movementInput != Vector2.zero){
+            animator.SetBool("Ismoving", true);
+            animator.SetFloat("Xinput",movementInput.x);
+            animator.SetFloat("Yinput", movementInput.y);
+        }
+        else animator.SetBool("Ismoving",false);
     }
 }
