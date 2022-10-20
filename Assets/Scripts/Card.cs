@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 public class Card : MonoBehaviour
 {
@@ -15,10 +16,13 @@ public class Card : MonoBehaviour
     }
 
     void OnClick(){
+        
         if(hasBeenPlayer == false){
             transform.position += Vector3.up *5;
             hasBeenPlayer= true;
+            
         }
+        
 
     }
 

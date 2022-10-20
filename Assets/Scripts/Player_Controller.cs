@@ -50,5 +50,6 @@ public class Player_Controller : MonoBehaviour
             animator.SetFloat("Yinput", movementInput.y);
         }
         else animator.SetBool("Ismoving",false);
+        
     }
 }
