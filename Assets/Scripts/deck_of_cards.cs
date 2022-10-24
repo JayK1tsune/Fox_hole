@@ -23,6 +23,7 @@ public class deck_of_cards : MonoBehaviour
                     availableCardSlots[i] = false;
                     deck.Remove(randCard);
                     return;
+                    
                 }
             }
         }

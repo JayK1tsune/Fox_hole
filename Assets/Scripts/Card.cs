@@ -20,6 +20,7 @@ public class Card : MonoBehaviour
         if(hasBeenPlayer == false){
             transform.position += Vector3.up *5;
             hasBeenPlayer= true;
+            Debug.Log("Has been clicked");
             
         }
         
