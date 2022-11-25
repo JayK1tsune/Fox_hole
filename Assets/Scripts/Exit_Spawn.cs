@@ -18,12 +18,15 @@ public class Exit_Spawn : MonoBehaviour
     {
        
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(player){
-            Debug.Log("Entered");
+    private void OnTriggerEnter2D(Collider2D other) {
+        
+        if(other.gameObject == player){
+            Debug.Log("This works now?");
         }
+        
     }
-
-    
 }
+   
+
+       
+
