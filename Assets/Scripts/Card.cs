@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
+    public List<Card> deck = new List<Card>();
     public static Card Instance{get; private set;}
     public int movmement = -1;
     public bool canAttack;
@@ -54,6 +55,16 @@ public class Card : MonoBehaviour, IPointerClickHandler
             break;
         case false:
             print("Can not attack");
+            break;
+        }
+
+        switch(canTeleport)
+        {
+        case true:
+            print ("Can TP");
+            break;
+        case false:
+            print("Can not TP");
             break;
         }
  
