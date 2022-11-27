@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class Player_Controller : MonoBehaviour
+public class Player_Controller : MonoBehaviour,IPointerDownHandler
 {
     public Animator animator;
     public float moveSpeed = 1f;
@@ -52,4 +53,11 @@ public class Player_Controller : MonoBehaviour
         else animator.SetBool("Ismoving",false);
         
     }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+            Debug.Log("I'm teh Fox");
+    
+    }
+
+
 }

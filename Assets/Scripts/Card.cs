@@ -15,10 +15,16 @@ public class Card : MonoBehaviour, IPointerClickHandler
     public int handIndex;
     private deck_of_cards doc;
     public bool hasBeenPlayed;
+    deck_of_cards deckOfCards;
+    GameManager gameManager;
+    [SerializeField] GameObject gameM;
 
     private void Awake() {
         Instance = this;
-       
+        
+        gameManager = gameM.GetComponent<GameManager>();
+        deckOfCards = gameM.GetComponent<deck_of_cards>();
+      
     }
 
     private void Start(){
@@ -29,7 +35,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
         switch(movmement)
         {
         case 1:
-            print ("movment 2");
+            print ("movment 1");
+            gameObject.SetActive(false);
             break;
         case 2:
             print ("movment 2");

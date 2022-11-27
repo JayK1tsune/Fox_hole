@@ -7,9 +7,7 @@ public class On_Pointers : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     Card card;
 
-    
- 
-    public void OnPointerEnter(PointerEventData eventData)
+    public  void OnPointerEnter(PointerEventData eventData)
     {
         print($"enter on {this.name}");
     }
@@ -25,4 +23,6 @@ public class On_Pointers : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
  
         }
     }
+ 
+
 }

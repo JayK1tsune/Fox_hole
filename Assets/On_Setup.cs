@@ -14,10 +14,6 @@ public class On_Setup : MonoBehaviour
         card_ui.gameObject.SetActive(true);
     }
 
-    public void NewLevel(){
-        xs.Shop_ui.gameObject.SetActive(false);
-        card_ui.gameObject.SetActive(true);
 
-    }
 
 }
