@@ -10,4 +10,8 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Has Quit");
         Application.Quit();
     }
+
+    public void Gameover(){
+        SceneManager.LoadScene("GameOver");
+    }
 }
