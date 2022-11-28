@@ -17,13 +17,15 @@ public class Card : MonoBehaviour, IPointerClickHandler
     public bool hasBeenPlayed;
     deck_of_cards deckOfCards;
     GameManager gameManager;
+    Player_Controller playerController;
     [SerializeField] GameObject gameM;
-
+    [SerializeField] GameObject playercontroller;
     private void Awake() {
         Instance = this;
         
         gameManager = gameM.GetComponent<GameManager>();
         deckOfCards = gameM.GetComponent<deck_of_cards>();
+        playerController = playercontroller.GetComponent<Player_Controller>();
       
     }
 
@@ -36,10 +38,13 @@ public class Card : MonoBehaviour, IPointerClickHandler
         {
         case 1:
             print ("movment 1");
+            playerController.MaxMovment = 1f;
             gameObject.SetActive(false);
             break;
         case 2:
             print ("movment 2");
+            playerController.MaxMovment = 2f;
+            gameObject.SetActive(false);
             break;
         case 3:
             print("Movment 3");

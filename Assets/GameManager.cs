@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
@@ -51,5 +52,6 @@ public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
   
    
     }
+
 
 }

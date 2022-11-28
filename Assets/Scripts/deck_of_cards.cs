@@ -1,7 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+
+[Serializable]
+public class cardTypes
+{
+    public string Name;
+    public Card[] cardList;
+}
 
 public class deck_of_cards : MonoBehaviour
 {
@@ -10,10 +20,12 @@ public class deck_of_cards : MonoBehaviour
    public bool[] availableCardSlots;
    public Text deckSizeText;
 
+public cardTypes[] Categories;
+
 
    public void DrawCard(){
         if(deck.Count >= 1){
-            Card randCard = deck[Random.Range(0,deck.Count)];
+            Card randCard = deck[UnityEngine.Random.Range(0,deck.Count)];
 
             for(int i = 0; i < availableCardSlots.Length; i++){
                 if(availableCardSlots[i] == true){

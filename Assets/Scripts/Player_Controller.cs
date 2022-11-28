@@ -10,6 +10,7 @@ public class Player_Controller : MonoBehaviour,IPointerDownHandler
     public float moveSpeed = 1f;
     public float collisionOffset = 0.5F;
     public ContactFilter2D movementFilter;
+    public float MaxMovment = 1f;
 
     Vector2 movementInput;
 
@@ -21,6 +22,9 @@ public class Player_Controller : MonoBehaviour,IPointerDownHandler
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+    }
+    void OnDisable(){
+        movementInput = Vector2.zero;
     }
 
     // Update is called once per frame
