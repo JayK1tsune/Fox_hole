@@ -16,9 +16,11 @@ public class cardTypes
 public class deck_of_cards : MonoBehaviour
 {
    public List<Card> deck = new List<Card>();
+   public List<Card> discardPile = new List<Card>();
    public Transform[] cardSlots;
    public bool[] availableCardSlots;
    public Text deckSizeText;
+   public Text discardSizeText;
 
 public cardTypes[] Categories;
 
@@ -30,8 +32,9 @@ public cardTypes[] Categories;
             for(int i = 0; i < availableCardSlots.Length; i++){
                 if(availableCardSlots[i] == true){
                     randCard.gameObject.SetActive(true);
-                    // randCard.handIndex = i;
+                    randCard.handIndex = i;
                     randCard.transform.position = cardSlots[i].position;
+                    randCard.hasBeenPlayed =false;
                     availableCardSlots[i] = false;
                     deck.Remove(randCard);
                     return;
@@ -41,7 +44,18 @@ public cardTypes[] Categories;
         }
    }
 
+   public void Shuffle(){
+    if (discardPile.Count >= 1){
+        foreach (Card card in discardPile)
+        {
+            deck.Add(card);
+        }
+        discardPile.Clear();
+    }
+   }
+
    public void Update(){
     deckSizeText.text = deck.Count.ToString();
+    discardSizeText.text = discardPile.Count.ToString();
    }
 }

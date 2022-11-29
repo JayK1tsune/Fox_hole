@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class GameManager : MonoBehaviour, IPointerDownHandler
 {
 
     public GameObject Spawn;
     public GameObject player;
     public GameObject Shop_ui;
     public GameObject Card_ui;
+    [SerializeField] GameObject pause_ui;
     public GameObject Start_Spawn;
     public GameObject Grid;
    
@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         exitspawn = exitS.GetComponent<Exit_Spawn>();
     }
 
-    private void Update() {
-        
-    }
     
     public void NewLevel(){
         player.gameObject.SetActive(true);
@@ -32,26 +29,17 @@ public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         Shop_ui.gameObject.SetActive(false);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        
-    
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-    
-    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if(player){
             Debug.Log("I'm teh Fox");
         }
-        
-  
    
     }
+
+    
 
 
 }

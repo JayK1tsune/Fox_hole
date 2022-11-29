@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame(){
         SceneManager.LoadScene("Gameplay");
+        
     }
     public void ExitGame(){
         Debug.Log("Has Quit");
@@ -14,4 +15,5 @@ public class MainMenu : MonoBehaviour
     public void Gameover(){
         SceneManager.LoadScene("GameOver");
     }
+    
 }

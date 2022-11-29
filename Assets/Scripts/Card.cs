@@ -9,7 +9,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 {
     public List<Card> deck = new List<Card>();
     public static Card Instance{get; private set;}
-    public int movmement = -1;
+    public int movmement;
     public bool canAttack;
     public bool canTeleport;
     public int handIndex;
@@ -39,24 +39,44 @@ public class Card : MonoBehaviour, IPointerClickHandler
         case 1:
             print ("movment 1");
             playerController.MaxMovment = 1f;
-            gameObject.SetActive(false);
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
         case 2:
             print ("movment 2");
-            playerController.MaxMovment = 2f;
-            gameObject.SetActive(false);
+            playerController.MaxMovment = 1f;
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
         case 3:
             print("Movment 3");
+            playerController.MaxMovment = 1f;
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
         case 4:
             print ("movement 4");
+            playerController.MaxMovment = 1f;
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
         case 5:
             print("movement 5");
+            playerController.MaxMovment = 1f;
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
         case 6:
             print("movement 6");
+            playerController.MaxMovment = 1f;
+            hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
             break;
 
         }
@@ -80,6 +100,10 @@ public class Card : MonoBehaviour, IPointerClickHandler
             break;
         }
  
+    }
+    void MoveToDiscardPile(){
+        deckOfCards.discardPile.Add(this);
+        gameObject.SetActive(false);
     }
 
 
