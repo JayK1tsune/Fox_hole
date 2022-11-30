@@ -32,9 +32,9 @@ public cardTypes[] Categories;
             for(int i = 0; i < availableCardSlots.Length; i++){
                 if(availableCardSlots[i] == true){
                     randCard.gameObject.SetActive(true);
-                    randCard.handIndex = i;
+                    randCard._handIndex = i;
                     randCard.transform.position = cardSlots[i].position;
-                    randCard.hasBeenPlayed =false;
+                    randCard._hasBeenPlayed =false;
                     availableCardSlots[i] = false;
                     deck.Remove(randCard);
                     return;
