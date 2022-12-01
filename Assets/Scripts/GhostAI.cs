@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GhostAI : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GhostAI : MonoBehaviour
     private float _currentHealth;
     private BoxCollider2D bc;
     private bool _isDead = false;
+    private int _deathCount = 4;
     
     [SerializeField] private HealthBar _healthbar;
     
@@ -35,11 +37,15 @@ public class GhostAI : MonoBehaviour
     private void Update() {
         if(player != null && _isDead == false){
             transform.position = Vector2.MoveTowards(transform.position,target.position,speed*Time.deltaTime);
+            
         }
         if(player == null){
             //play animation when dead
             
-            
+           
+        }
+        if(_deathCount <= 0){
+            SceneManager.LoadScene("WinScreen");
         }
         
     }
@@ -52,7 +58,10 @@ public class GhostAI : MonoBehaviour
                 _isDead = true;                
                 animator.SetTrigger("_isDead");
                 bc.isTrigger=false;
+                _deathCount--;
+                Debug.Log(_deathCount);
                 Destroy(gameObject,3f);
+
             }
             else{
                 _currentHealth--;
