@@ -32,6 +32,13 @@ public class Card : MonoBehaviour, IPointerClickHandler
         playerController = playercontroller.GetComponent<Player_Controller>();
       
     }
+    enum Test : uint
+    {
+        OptionOne = 1,
+        OptionTwo,
+        OptionThree,
+         None
+    }
 
     private void Start(){
         doc = FindObjectOfType<deck_of_cards>();
@@ -45,8 +52,9 @@ public class Card : MonoBehaviour, IPointerClickHandler
             _currentMovement = playerController.moveSpeed;
             if (playerController.moveSpeed <= 2){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(5.0f,_currentMovement,-0.5f);
             }
-            Invoke(nameof(ReturnSpeed),3.0f); //how to invoke with 1 overload.
+           
             Debug.Log(_currentMovement);
             
             
@@ -123,21 +131,15 @@ public class Card : MonoBehaviour, IPointerClickHandler
         gameObject.SetActive(false);
     }
 
-    // void SpeedDelay(float delayTime, float currentmovment, float movespeed){
-    //     StartCoroutine(DelayAction(delayTime,currentmovment,movespeed));
-    // }
-    // IEnumerator DelayAction(float delayTime, float currentmovment, float movespeed ){
-    //     yield return new WaitForSeconds(delayTime);
-    //     playerController.moveSpeed = currentmovment-movespeed;
-
-    // }
-    public void ReturnSpeed( ){
-        playerController.moveSpeed = _currentMovement-0.1f;
+    void SpeedDelay(float delayTime, float currentmovment, float movespeed){
+        StartCoroutine(DelayAction(delayTime,currentmovment,movespeed));
     }
+    IEnumerator DelayAction(float delayTime, float currentmovment, float movespeed ){
+        yield return new WaitForSeconds(delayTime);
+        playerController.moveSpeed = currentmovment-movespeed;
 
-
- 
-
-
- 
+    }
+    // public void ReturnSpeed(float _currentMovement){
+    //     playerController.moveSpeed = _currentMovement-0.1f;
+    // }
 }
