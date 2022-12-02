@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.ComTypes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
         gameManager = gameM.GetComponent<GameManager>();
         deckOfCards = gameM.GetComponent<deck_of_cards>();
         playerController = playercontroller.GetComponent<Player_Controller>();
+        
       
+    }
+    private void Update() {
+        gameManager._playCurrentSpeed = playerController.moveSpeed;
     }
     enum Test : uint
     {
@@ -49,17 +54,16 @@ public class Card : MonoBehaviour, IPointerClickHandler
         {
         case 1:
             print ("movment 1");
-            _currentMovement = playerController.moveSpeed;
+            
+            Debug.Log(playerController.moveSpeed);
             if (playerController.moveSpeed <= 2){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
-            SpeedDelay(5.0f,_currentMovement,-0.5f);
+            Debug.Log(playerController.moveSpeed);
             }
-           
-            Debug.Log(_currentMovement);
-            
-            
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
+            Invoke("ReturnSpeed", 2f);
+            Debug.Log(playerController.moveSpeed);
             Invoke("MoveToDiscardPile",1f);
             break;
         case 2:
@@ -104,11 +108,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
         {
         case true:
             _player.color = new Color(1,0,0,1);
-            print ("Can attack");
+            gameManager.canAttack = true;
             break;
         case false:
             _player.color = new Color(1,1,1,1);
-            print("Can not attack");
+            gameManager.canAttack = false;
             break;
         }
 
@@ -131,15 +135,20 @@ public class Card : MonoBehaviour, IPointerClickHandler
         gameObject.SetActive(false);
     }
 
-    void SpeedDelay(float delayTime, float currentmovment, float movespeed){
-        StartCoroutine(DelayAction(delayTime,currentmovment,movespeed));
+    public void SpeedDelay(float delayTime){
+        StartCoroutine(DelayAction(delayTime));
     }
-    IEnumerator DelayAction(float delayTime, float currentmovment, float movespeed ){
+    IEnumerator DelayAction(float delayTime){
+        playerController.moveSpeed = playerController.moveSpeed - 0.1f;
         yield return new WaitForSeconds(delayTime);
-        playerController.moveSpeed = currentmovment-movespeed;
 
     }
-    // public void ReturnSpeed(float _currentMovement){
-    //     playerController.moveSpeed = _currentMovement-0.1f;
-    // }
+    
+    
+
+    
+    
+    void ReturnSpeed(){
+        playerController.moveSpeed = playerController.moveSpeed - 0.1f;
+    }
 }

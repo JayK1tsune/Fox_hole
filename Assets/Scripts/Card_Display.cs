@@ -11,6 +11,8 @@ public class Card_Display : MonoBehaviour
     {
         
     }
+    
+    
 
 
 }
