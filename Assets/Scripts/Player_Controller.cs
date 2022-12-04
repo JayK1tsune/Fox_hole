@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Player_Controller : MonoBehaviour,IPointerDownHandler
 {
@@ -11,21 +12,33 @@ public class Player_Controller : MonoBehaviour,IPointerDownHandler
     public float collisionOffset = 0.5F;
     public ContactFilter2D movementFilter;
     public float MaxMovment = 1f;
-    PauseMenu pauseMenu;
-    [SerializeField] GameObject pm;
+    HealthBar healthBar;
+    GameManager gameManager;
+    public bool _ghostCanHit;
+    [SerializeField] GameObject hb;
+    private float _health;
+    [SerializeField] float _maxhealth;
+    [SerializeField] GameObject gm;
+    [SerializeField] GameObject _cards;
+    public GameObject[] _ghost;
+    public GameObject _ghostPrefab;
+    Card card;
+  
 
     Vector2 movementInput;
 
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
-    private void Awake() {
-        pauseMenu = pm.GetComponent<PauseMenu>();
-    }
+
     void Start()
     {
+        healthBar = hb.GetComponent<HealthBar>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        _health = _maxhealth;
+        gameManager = gm.GetComponent<GameManager>();
+        card = _cards.GetComponent<Card>();
     }
     void OnDisable(){
         movementInput = Vector2.zero;
@@ -58,15 +71,21 @@ public class Player_Controller : MonoBehaviour,IPointerDownHandler
             Debug.Log("I'm teh Fox");
     
     }
-    void OnEsc(){
-        if(pauseMenu.GameIsPaused == false){
-            pauseMenu.Pause();           
+    
+    private void OnTriggerEnter2D(Collider2D collider) {  
+        if(collider.CompareTag("Ghost")){
+            if (_health <= 0){
+                
+                Destroy(gameObject,3f);
+                SceneManager.LoadScene("GameOver");
+                
+
+            }
+            else if (!gameManager.canAttack){
+                _health--;
+                Debug.Log(_ghostCanHit);
+                healthBar.UpdateHealthBar(_maxhealth,_health);
+            }
         }
-        else{
-            pauseMenu.Resume();
-        }
-        Debug.Log("I pressed Esc");
     }
-
-
 }

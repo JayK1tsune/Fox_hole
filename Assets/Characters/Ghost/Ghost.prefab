@@ -390,8 +390,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
+  _card: {fileID: 0}
+  Gm: {fileID: 0}
   mm: {fileID: 0}
   _maxhealth: 5
+  animator: {fileID: 0}
+  _escape: {fileID: 0}
   _healthbar: {fileID: 0}
   player: {fileID: 0}
 --- !u!61 &-6533290468568788990

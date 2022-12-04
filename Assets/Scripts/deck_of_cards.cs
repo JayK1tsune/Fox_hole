@@ -21,10 +21,14 @@ public class deck_of_cards : MonoBehaviour
    public bool[] availableCardSlots;
    public Text deckSizeText;
    public Text discardSizeText;
+   public Text shuffleText;
+   public int shuffleNumber;
 
 public cardTypes[] Categories;
 
-
+private void Start() {
+    shuffleNumber = 3;
+}
    public void DrawCard(){
         if(deck.Count >= 1){
             Card randCard = deck[UnityEngine.Random.Range(0,deck.Count)];
@@ -45,17 +49,19 @@ public cardTypes[] Categories;
    }
 
    public void Shuffle(){
-    if (discardPile.Count >= 1){
+    if (discardPile.Count >= 1 && shuffleNumber >= 1){
         foreach (Card card in discardPile)
         {
             deck.Add(card);
         }
         discardPile.Clear();
+        shuffleNumber--;
     }
    }
 
    public void Update(){
     deckSizeText.text = deck.Count.ToString();
     discardSizeText.text = discardPile.Count.ToString();
+    shuffleText.text = shuffleNumber.ToString(shuffleNumber+ "\n Shuffles Left");
    }
 }

@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     public void UpdateHealthBar(float maxHealth, float currentHealth){
         _healthbarSprite.fillAmount = currentHealth / maxHealth;
     }
+   
     
 
 }

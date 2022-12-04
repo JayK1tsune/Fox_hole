@@ -24,12 +24,7 @@ public class Exit_Spawn : MonoBehaviour
         
         if(other.gameObject == gameManager.player){
             //once player has got to the goal, setting all UI elements and resetting player to start location.
-            gameManager.player.gameObject.transform.position = gameManager.Start_Spawn.gameObject.transform.position;
-            gameManager.player.gameObject.transform.rotation = gameManager.Start_Spawn.gameObject.transform.rotation;
-            gameManager.player.gameObject.SetActive(false);
-            gameManager.Grid.gameObject.SetActive(false);
-            gameManager.Card_ui.gameObject.SetActive(false);
-            gameManager.Shop_ui.gameObject.SetActive(true);
+            gameManager.ShopEnter();
             
         }
     }

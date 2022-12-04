@@ -31,23 +31,22 @@ public class Card : MonoBehaviour, IPointerClickHandler
         gameManager = gameM.GetComponent<GameManager>();
         deckOfCards = gameM.GetComponent<deck_of_cards>();
         playerController = playercontroller.GetComponent<Player_Controller>();
-        
-      
+    }
+    private void Start(){
+        doc = FindObjectOfType<deck_of_cards>();
     }
     private void Update() {
         gameManager._playCurrentSpeed = playerController.moveSpeed;
     }
-    enum Test : uint
-    {
-        OptionOne = 1,
-        OptionTwo,
-        OptionThree,
-         None
-    }
-
-    private void Start(){
-        doc = FindObjectOfType<deck_of_cards>();
-    }
+    // enum Test : uint
+    // {
+    //     OptionOne = 1,
+    //     OptionTwo,
+    //     OptionThree,
+    //      None
+    // }
+    
+    //Switch Statements for Card clicks.
     public void OnPointerClick (PointerEventData eventData)
     {
         switch(_movmement)
@@ -56,26 +55,28 @@ public class Card : MonoBehaviour, IPointerClickHandler
             print ("movment 1");
             
             Debug.Log(playerController.moveSpeed);
-            if (playerController.moveSpeed <= 2){
+            if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             Debug.Log(playerController.moveSpeed);
+            SpeedDelay(5f);
             }
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("ReturnSpeed", 2f);
+            
             Debug.Log(playerController.moveSpeed);
             Invoke("MoveToDiscardPile",1f);
             break;
         case 2:
             print ("movment 2");
             playerController.moveSpeed = playerController.moveSpeed+0.2f;
-
+            
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
             Invoke("MoveToDiscardPile",1f);
             break;
         case 3:
             print("Movment 3");
+            
             playerController.MaxMovment = 1f;
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
@@ -84,6 +85,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         case 4:
             print ("movement 4");
             playerController.MaxMovment = 1f;
+            
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
             Invoke("MoveToDiscardPile",1f);
@@ -91,6 +93,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         case 5:
             print("movement 5");
             playerController.MaxMovment = 1f;
+            
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
             Invoke("MoveToDiscardPile",1f);
@@ -98,6 +101,13 @@ public class Card : MonoBehaviour, IPointerClickHandler
         case 6:
             print("movement 6");
             playerController.MaxMovment = 1f;
+            
+            _hasBeenPlayed =true;
+            deckOfCards.availableCardSlots[_handIndex] = true;
+            Invoke("MoveToDiscardPile",1f);
+            break;
+        default:
+            print("movement 0");
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
             Invoke("MoveToDiscardPile",1f);
@@ -107,10 +117,12 @@ public class Card : MonoBehaviour, IPointerClickHandler
         switch(_canAttack)
         {
         case true:
+            playerController._ghostCanHit=true;
             _player.color = new Color(1,0,0,1);
             gameManager.canAttack = true;
             break;
         case false:
+            playerController._ghostCanHit=false;
             _player.color = new Color(1,1,1,1);
             gameManager.canAttack = false;
             break;
@@ -130,25 +142,22 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
 
 
-    void MoveToDiscardPile(){
-        deckOfCards.discardPile.Add(this);
-        gameObject.SetActive(false);
-    }
+
 
     public void SpeedDelay(float delayTime){
         StartCoroutine(DelayAction(delayTime));
     }
     IEnumerator DelayAction(float delayTime){
-        playerController.moveSpeed = playerController.moveSpeed - 0.1f;
         yield return new WaitForSeconds(delayTime);
+        playerController.moveSpeed = playerController.moveSpeed - 0.1f;
+        
 
     }
-    
-    
-
-    
-    
     void ReturnSpeed(){
         playerController.moveSpeed = playerController.moveSpeed - 0.1f;
+    }
+    void MoveToDiscardPile(){
+        deckOfCards.discardPile.Add(this);
+        gameObject.SetActive(false);
     }
 }
