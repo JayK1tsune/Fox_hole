@@ -17407,6 +17407,7 @@ MonoBehaviour:
   - {fileID: 1023966109}
   _ghostPrefab: {fileID: 7173996381336655106, guid: 5304056d87b10754187a3b3ddc849087, type: 3}
   pauseMenu: {fileID: 0}
+  card: {fileID: 0}
   GAI: {fileID: 7173996381336655106, guid: 5304056d87b10754187a3b3ddc849087, type: 3}
   exitS: {fileID: 838939065}
   _coinSpawner: {fileID: 1431301881}

@@ -21,7 +21,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     Player_Controller playerController;
     [SerializeField] GameObject gameM;
     [SerializeField] GameObject playercontroller;
-    [SerializeField] SpriteRenderer _player;
+    [SerializeField] public SpriteRenderer _player;
     private void Awake() {
         Instance = this;
         _player = _player.GetComponent<SpriteRenderer>();

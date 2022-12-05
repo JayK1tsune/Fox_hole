@@ -24,6 +24,8 @@ public class Exit_Spawn : MonoBehaviour
         
         if(other.gameObject == gameManager.player){
             //once player has got to the goal, setting all UI elements and resetting player to start location.
+            gameManager.canAttack=false;
+            gameManager.card._player.color = new Color(1,1,1,1);
             gameManager.ShopEnter();
             
         }

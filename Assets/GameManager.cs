@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     Exit_Spawn exitspawn;
     deck_of_cards deck_Of_Cards;
     GhostAI ghostAI;
-    Card card;
+    public Card card;
     [SerializeField] GameObject GAI;
     [SerializeField] GameObject exitS;
     [SerializeField] GameObject _coinSpawner;
