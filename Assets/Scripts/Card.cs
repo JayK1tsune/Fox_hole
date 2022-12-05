@@ -15,6 +15,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
     private deck_of_cards doc;
     public bool _hasBeenPlayed;
     private SpriteRenderer _orignalColour;
+    private BoxCollider2D boxCollider2D;
     deck_of_cards deckOfCards;
     GameManager gameManager;
     Player_Controller playerController;
@@ -28,6 +29,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         gameManager = gameM.GetComponent<GameManager>();
         deckOfCards = gameM.GetComponent<deck_of_cards>();
         playerController = playercontroller.GetComponent<Player_Controller>();
+        boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
     }
     private void Start(){
         doc = FindObjectOfType<deck_of_cards>();
@@ -50,7 +52,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
         {
         case 1:
             print ("movment 1");
-
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(1f,0.1f);
@@ -58,20 +60,22 @@ public class Card : MonoBehaviour, IPointerClickHandler
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",2f);
+           // Invoke("MoveToDiscardPile",2f);
             break;
         case 2:
             print ("movment 2");
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(2f,0.1f);
             }
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",3f);
+           // Invoke("MoveToDiscardPile",3f);
             break;
         case 3:
             print("Movment 3");
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(3f,0.1f);
@@ -79,10 +83,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
           
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",4f);
+           // Invoke("MoveToDiscardPile",4f);
             break;
         case 4:
             print ("movement 4");
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(4f,0.1f);
@@ -94,6 +99,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
             break;
         case 5:
             print("movement 5");
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(5f,0.1f);
@@ -101,10 +107,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",6f);
+            //Invoke("MoveToDiscardPile",6f);
             break;
         case 6:
             print("movement 6");
+            boxCollider2D.isTrigger = false;
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
             SpeedDelay(6f,0.1f);
@@ -112,13 +119,17 @@ public class Card : MonoBehaviour, IPointerClickHandler
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",7f);
+            //Invoke("MoveToDiscardPile",7f);
             break;
         default:
             print("movement 0");
+            boxCollider2D.isTrigger = false;
+            if (playerController.moveSpeed <= 1){
+            AttackDelay(1f,_movmement);
+            }
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            //Invoke("MoveToDiscardPile",6f);
             break;
 
         }
@@ -156,10 +167,19 @@ public class Card : MonoBehaviour, IPointerClickHandler
         StartCoroutine(DelayAction(delayTime,speed));
     }
     IEnumerator DelayAction(float delayTime, float speed){
+        
         yield return new WaitForSeconds(delayTime);
+        gameObject.SetActive(false);
+        deckOfCards.discardPile.Add(this);
         playerController.moveSpeed = playerController.moveSpeed - speed;
+        if(_canAttack){
+            playerController._ghostCanHit=false;
+            _player.color = new Color(1,1,1,1);
+            gameManager.canAttack = false;
+        }
         Debug.Log(playerController.moveSpeed);
         yield return null;
+       
     }
     public void AttackDelay(float delay, int _movment){
         StartCoroutine(DelayAttack(delay,_movmement));
@@ -173,8 +193,5 @@ public class Card : MonoBehaviour, IPointerClickHandler
     void ReturnSpeed(){
         playerController.moveSpeed = playerController.moveSpeed - 0.1f;
     }
-    void MoveToDiscardPile(){
-        deckOfCards.discardPile.Add(this);
-        gameObject.SetActive(false);
-    }
+
 }

@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour, IPointerDownHandler
 {
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     CoinCollection coinCollection;
     CoinSpawner coinSpawner;
     public PauseMenu pauseMenu;
+    ExitOpens exitOpens;
+    private int _secondsForExit = 30;
     
    
     Exit_Spawn exitspawn;
@@ -40,6 +43,9 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     [SerializeField] GameObject _cardslot;
     [SerializeField] GameObject _ghosts;
     [SerializeField] GameObject coin;
+    
+    [SerializeField] GameObject _exit;
+    [SerializeField] int _exitTimer;
 
     private void Awake() {
         ghostAI = GAI.GetComponent<GhostAI>();
@@ -52,12 +58,12 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         _cardslot = _cardslot.gameObject;
         _ghosts = _ghosts.gameObject;
         coin = coin.gameObject;
+      
 
     }
     private void Start() {
         _ghostDeathCount = 4;
-        canAttack = false;
-        
+        canAttack = false;      
     }
 
     
@@ -70,6 +76,7 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         _cardslot.gameObject.SetActive(true);
         _ghosts.gameObject.SetActive(true);
         coin.gameObject.SetActive(true);
+        StartCoroutine(OpenExit());
     }
     private void Update() {
 
@@ -111,7 +118,7 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         _ghosts.gameObject.SetActive(false);
         coin.gameObject.SetActive(false);
         deck_Of_Cards.shuffleText.text = deck_Of_Cards.shuffleNumber.ToString(deck_Of_Cards.shuffleNumber+ "\n Shuffles Left");
-   
+        _exit.gameObject.SetActive(false);
 
 
         if(CompareTag("Ghost")){
@@ -127,6 +134,12 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     void MoveToDiscardPile(){
         deck_Of_Cards.discardPile.Add(Card.Instance);
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator OpenExit(){
+        yield return new WaitForSeconds(_exitTimer);
+        _exit.gameObject.SetActive(true);
+        _exitTimer = _exitTimer+10;
     }
 
 

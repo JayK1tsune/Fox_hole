@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ExitOpens : MonoBehaviour
 {
-    [SerializeField] GameObject _exit;
-    [SerializeField] int _exitTimer;
-    IEnumerator Start(){
-    yield return new WaitForSeconds(_exitTimer);
-    _exit.gameObject.SetActive(true);
-
+    GameManager gameManager;
+    [SerializeField] GameObject gm;
+  
+    private void Start() {
+        gameManager = gm.GetComponent<GameManager>();
+        StartCoroutine(gameManager.OpenExit());
     }
+
 }
 

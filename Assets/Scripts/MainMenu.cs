@@ -7,6 +7,9 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
         
     }
+    public void Tutorial(){
+        SceneManager.LoadScene("Loading");
+    }
     public void ExitGame(){
         Debug.Log("Has Quit");
         Application.Quit();
