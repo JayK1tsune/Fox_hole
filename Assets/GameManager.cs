@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     [SerializeField] GameObject pause_ui;
     public GameObject Start_Spawn;
     private bool _isDead;
-    private bool _isInShop;
     public int _ghostDeathCount;
     public bool canAttack;
     public float _playCurrentSpeed;
@@ -38,6 +37,9 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     [SerializeField] GameObject docs;
     [SerializeField] GameObject pm;
     [SerializeField] GameObject _card;
+    [SerializeField] GameObject _cardslot;
+    [SerializeField] GameObject _ghosts;
+    [SerializeField] GameObject coin;
 
     private void Awake() {
         ghostAI = GAI.GetComponent<GhostAI>();
@@ -47,6 +49,9 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         deck_Of_Cards = docs.GetComponent<deck_of_cards>();
         pauseMenu = pm.GetComponent<PauseMenu>();
         card = _card.GetComponent<Card>();
+        _cardslot = _cardslot.gameObject;
+        _ghosts = _ghosts.gameObject;
+        coin = coin.gameObject;
 
     }
     private void Start() {
@@ -62,7 +67,9 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         Card_ui.gameObject.SetActive(true);
         Shop_ui.gameObject.SetActive(false);
         ghostAI.gameObject.SetActive(true);
-        _isInShop = false;
+        _cardslot.gameObject.SetActive(true);
+        _ghosts.gameObject.SetActive(true);
+        coin.gameObject.SetActive(true);
     }
     private void Update() {
 
@@ -93,7 +100,6 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
 
 
     public void ShopEnter(){
-        _isInShop = true;
         deck_Of_Cards.shuffleNumber++;
         player.gameObject.transform.position = Start_Spawn.gameObject.transform.position;
         player.gameObject.transform.rotation = Start_Spawn.gameObject.transform.rotation;
@@ -101,6 +107,9 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         Grid.gameObject.SetActive(false);
         Card_ui.gameObject.SetActive(false);
         Shop_ui.gameObject.SetActive(true);
+        _cardslot.gameObject.SetActive(false);
+        _ghosts.gameObject.SetActive(false);
+        coin.gameObject.SetActive(false);
         deck_Of_Cards.shuffleText.text = deck_Of_Cards.shuffleNumber.ToString(deck_Of_Cards.shuffleNumber+ "\n Shuffles Left");
    
 

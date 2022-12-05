@@ -1,10 +1,7 @@
-using System.Runtime.InteropServices.ComTypes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using System;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
