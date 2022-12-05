@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
     public GameObject _ghostPrefab;
     CoinCollection coinCollection;
     CoinSpawner coinSpawner;
-    PauseMenu pauseMenu;
+    public PauseMenu pauseMenu;
     
    
     Exit_Spawn exitspawn;
@@ -65,17 +65,17 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         _isInShop = false;
     }
     private void Update() {
+
+        // if(Keyboard.current[KeyCode.Escape].wasPressedThisFrame)
+        // {
+        //     OnEsc();
+        // }
         if (_ghostDeathCount <= 0)
         {
             _isDead = true;
             WinScreen(_isDead);
         }
-        //if(_isInShop){
-        //    Invoke("MoveToDiscardPile",0f);
-        //}
 
-        
-        
     }
 
 
@@ -90,15 +90,7 @@ public class GameManager : MonoBehaviour, IPointerDownHandler
         
             SceneManager.LoadScene("WinScreen");
     }
-    void OnEsc(){
-    if(pauseMenu.GameIsPaused == false){
-            pauseMenu.Pause();           
-        }
-        else{
-            pauseMenu.Resume();
-        }
-        Debug.Log("I pressed Esc");
-    }
+
 
     public void ShopEnter(){
         _isInShop = true;

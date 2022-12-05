@@ -53,58 +53,69 @@ public class Card : MonoBehaviour, IPointerClickHandler
         {
         case 1:
             print ("movment 1");
-            
-            Debug.Log(playerController.moveSpeed);
+
             if (playerController.moveSpeed <= 1){
             playerController.moveSpeed = playerController.moveSpeed+0.1f;
-            Debug.Log(playerController.moveSpeed);
-            SpeedDelay(5f);
+            SpeedDelay(1f,0.1f);
             }
+            
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            
-            Debug.Log(playerController.moveSpeed);
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",2f);
             break;
         case 2:
             print ("movment 2");
-            playerController.moveSpeed = playerController.moveSpeed+0.2f;
-            
+            if (playerController.moveSpeed <= 1){
+            playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(2f,0.1f);
+            }
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",3f);
             break;
         case 3:
             print("Movment 3");
-            
-            playerController.MaxMovment = 1f;
+            if (playerController.moveSpeed <= 1){
+            playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(3f,0.1f);
+            }
+          
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",4f);
             break;
         case 4:
             print ("movement 4");
-            playerController.MaxMovment = 1f;
+            if (playerController.moveSpeed <= 1){
+            playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(4f,0.1f);
+            }
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",5f);
             break;
         case 5:
             print("movement 5");
-            playerController.MaxMovment = 1f;
+            if (playerController.moveSpeed <= 1){
+            playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(5f,0.1f);
+            }
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",6f);
             break;
         case 6:
             print("movement 6");
-            playerController.MaxMovment = 1f;
+            if (playerController.moveSpeed <= 1){
+            playerController.moveSpeed = playerController.moveSpeed+0.1f;
+            SpeedDelay(6f,0.1f);
+            }
             
             _hasBeenPlayed =true;
             deckOfCards.availableCardSlots[_handIndex] = true;
-            Invoke("MoveToDiscardPile",1f);
+            Invoke("MoveToDiscardPile",7f);
             break;
         default:
             print("movement 0");
@@ -144,14 +155,23 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
 
 
-    public void SpeedDelay(float delayTime){
-        StartCoroutine(DelayAction(delayTime));
+    public void SpeedDelay(float delayTime, float speed){
+        StartCoroutine(DelayAction(delayTime,speed));
     }
-    IEnumerator DelayAction(float delayTime){
+    IEnumerator DelayAction(float delayTime, float speed){
         yield return new WaitForSeconds(delayTime);
-        playerController.moveSpeed = playerController.moveSpeed - 0.1f;
-        
-
+        playerController.moveSpeed = playerController.moveSpeed - speed;
+        Debug.Log(playerController.moveSpeed);
+        yield return null;
+    }
+    public void AttackDelay(float delay, int _movment){
+        StartCoroutine(DelayAttack(delay,_movmement));
+    }
+    IEnumerator DelayAttack(float delay, int _movmement){
+        yield return new WaitForSeconds(delay);
+        gameManager.canAttack = false;
+        _player.color = new Color(1,1,1,1);
+        yield return null;
     }
     void ReturnSpeed(){
         playerController.moveSpeed = playerController.moveSpeed - 0.1f;

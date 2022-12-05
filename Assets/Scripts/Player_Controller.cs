@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -65,6 +65,15 @@ public class Player_Controller : MonoBehaviour,IPointerDownHandler
         }
         else animator.SetBool("Ismoving",false);
         
+    }
+    public void OnEsc(){
+        if(gameManager.pauseMenu.GameIsPaused == false){
+            gameManager.pauseMenu.Pause();           
+        }
+        else{
+            gameManager.pauseMenu.Resume();
+        }
+        Debug.Log("I pressed Esc");
     }
     public void OnPointerDown(PointerEventData eventData)
     {
