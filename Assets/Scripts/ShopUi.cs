@@ -8,13 +8,24 @@ public class ShopUi : MonoBehaviour
     [SerializeField] GameObject doc;
     [SerializeField] GameObject _coins;
     [SerializeField] GameObject _errorNoCoins;
+    //atempt to change volume of main music as i enter the shop
+     //MusicManager musicManager;
+ 
+
 
     private void Awake() {
         deckOfCards = doc.GetComponent<deck_of_cards>();
         coinCollection = _coins.GetComponent<CoinCollection>();
+        //musicManager._volume.Pause(); 
+        
     }
+
+       
+
     private void OnDisable() {
         _errorNoCoins.SetActive(false);
+        //musicManager._volume.Play
+        
     }
 
     public void AddCard(int categoryNum){

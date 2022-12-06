@@ -16,6 +16,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
     public bool _hasBeenPlayed;
     private SpriteRenderer _orignalColour;
     private BoxCollider2D boxCollider2D;
+    private AudioClip clicksound;
+    private AudioSource audioSource;
     deck_of_cards deckOfCards;
     GameManager gameManager;
     Player_Controller playerController;
@@ -30,9 +32,11 @@ public class Card : MonoBehaviour, IPointerClickHandler
         deckOfCards = gameM.GetComponent<deck_of_cards>();
         playerController = playercontroller.GetComponent<Player_Controller>();
         boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Start(){
         doc = FindObjectOfType<deck_of_cards>();
+        clicksound = (AudioClip)Resources.Load("Click");
     }
     private void Update() {
         gameManager._playCurrentSpeed = playerController.moveSpeed;
@@ -48,6 +52,8 @@ public class Card : MonoBehaviour, IPointerClickHandler
     //Switch Statements for Card clicks.
     public void OnPointerClick (PointerEventData eventData)
     {
+        audioSource.clip = clicksound;
+        audioSource.Play();
         switch(_movmement)
         {
         case 1:
